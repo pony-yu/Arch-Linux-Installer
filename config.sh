@@ -59,7 +59,7 @@ install_grub(){
         fdisk -l
         color yellow "Input the disk you want to install grub (/dev/sdX"
         read TMP
-        grub-install --target=i386-pc $TMP
+        grub-install --target=i386-pc $TMP  --force  # There will encount a error, with 'force' can skip it.
         grub-mkconfig -o /boot/grub/grub.cfg
     fi
 }
@@ -295,6 +295,16 @@ clean(){
     sed -i 's/\%wheel ALL=(ALL) NOPASSWD: ALL/\# \%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 }
 
+setting_zsh(){  # use this with user added
+    pacman -S zsh
+    color yellow "setting zsh for who?"
+    read user
+    su - $user 
+    chsh -s $(which zsh)
+    sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    logout   # todo: config .zshrc
+}
+
 main(){
     config_base
     config_locale
@@ -316,6 +326,7 @@ main(){
     fi
     install_app
     install_desktop
+    setting_zsh
     clean
     color yellow "Done , Thanks for using"
 }
