@@ -59,7 +59,7 @@ install_grub(){
         fdisk -l
         color yellow "Input the disk you want to install grub (/dev/sdX"
         read TMP
-        grub-install --target=i386-pc $TMP  --force  # There will encount a error, with 'force' can skip it.
+        grub-install --target=i386-pc $TMP  --force  # There will encount an error, with 'force' can skip it.
         grub-mkconfig -o /boot/grub/grub.cfg
     fi
 }
