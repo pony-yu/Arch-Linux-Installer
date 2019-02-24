@@ -5,6 +5,10 @@ boot=$2
 
 set -e
 
+my_sed(){
+    echo "my sed"  # back up the file before modify;
+}
+
 color(){
     case $1 in
         red)
